@@ -1,0 +1,20 @@
+Checks SUN XSCF over a telnet connection.
+
+Script is Nagios compliant.
+
+Only use it in secure environments, because telnet sucks :-)
+
+
+Usage: check_xscf_telnet.pl [ -tvfadbes ] < -h xscf-host> < -u user> < -p passwd> [ -c 0..100 ] [ -w 0..100 ]
+
+	-t: temp
+	-v: volt
+	-f: Fan
+	-a: air
+	-d: Domains
+	-b: Boards
+	-e: Hardware
+	-s: System Init Failures
+
+
+Uses CPAN module NET::Telnet
