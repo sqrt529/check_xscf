@@ -71,18 +71,21 @@ if (defined($opt_t)) {
 	foreach my $temp (@temp) {
 		chomp $temp;
 
-		$temp =~ s/ //g;
-		$temp =~ s/C$//g;
+		if ($temp =~ /C$/) {
 
-		my @line = split(/:/, $temp);
+			$temp =~ s/ //g;
+			$temp =~ s/C$//g;
+
+			my @line = split(/:/, $temp);
 		
-		if ($line[1] ge $critval) {
-			$text = $text.$line[0].": ".$line[1]." C; ";
-			$criticals++;
-		}
-		elsif ($line[1] ge $warnval) {
-			$text = $text.$line[0].": ".$line[1]." C; ";
-			$warnings++;
+			if ($line[1] ge $critval) {
+				$text = $text.$line[0].": ".$line[1]." C; ";
+				$criticals++;
+			}
+			elsif ($line[1] ge $warnval) {
+				$text = $text.$line[0].": ".$line[1]." C; ";
+				$warnings++;
+			}
 		}
 	}
 }
@@ -126,22 +129,25 @@ if (defined($opt_f)) {
 	foreach my $fan (@fan) {
 		chomp $fan;
 
-		$fan =~ s/ //g;
-		$fan =~ s/rpm$//g;
+		if ($fan =~ /rpm$/) {
 
-		my @line = split(/:/, $fan);
+			$fan =~ s/ //g;
+			$fan =~ s/rpm$//g;
 
-		if ($line[1] =~ /speed$/) {
-			next;
-		}
+			my @line = split(/:/, $fan);
 
-		if ($line[1] <= $critval) {
-			$text = $text.$line[0].": ".$line[1]." RPM; ";
-			$criticals++;
-		}
-		elsif ($line[1] <= $warnval) {
-			$text = $text.$line[0].": ".$line[1]." RPM; ";
-			$warnings++;
+			if ($line[1] =~ /speed$/) {
+				next;
+			}
+
+			if ($line[1] <= $critval) {
+				$text = $text.$line[0].": ".$line[1]." RPM; ";
+				$criticals++;
+			}
+			elsif ($line[1] <= $warnval) {
+				$text = $text.$line[0].": ".$line[1]." RPM; ";
+				$warnings++;
+			}
 		}
 	}
 }
